@@ -1,30 +1,30 @@
 <script lang="ts">
+	import { fade, fly } from 'svelte/transition';
+	import { flyMapper, positionMapper } from '$lib/utils/mappers.utils';
+	import { toasts } from '$lib/stores/toasts.store';
+	import { flip } from 'svelte/animate';
 	import type { Position } from '$lib/types';
 	import ToastItem from './ToastItem.svelte';
-	import { toasts } from '$lib/stores/toasts.store';
+	import { animationStore } from '$lib/stores/animation.store';
 
 	export let position: Position = 'end';
-
-	const positionSelector: { [key in Position]: string } = {
-		bottom: '',
-		end: 'top-10 right-10',
-		start: 'top-10 left-10',
-		top: ''
-	} as const;
 </script>
 
-<ul class="fixed list-none z-50 space-y-3 {positionSelector[position]}">
-	{#each $toasts as { auto, duration, icon, id, message, type }}
-		<li>
+<ul class="fixed list-none z-50 {positionMapper[position]}">
+	{#each $toasts as { auto, duration, icon, id, message, pausable, type } (id)}
+		<li
+			in:fly={flyMapper[position]}
+			out:fade={{ duration: $animationStore.duration }}
+			animate:flip={{ delay: $animationStore.delay }}
+		>
 			<ToastItem
 				{auto}
 				{duration}
 				{icon}
 				{message}
+				{pausable}
 				{type}
-				onClose={() => {
-					toasts.remove(id);
-				}}
+				onClose={() => toasts.pop(id)}
 			/>
 		</li>
 	{/each}

@@ -3,23 +3,31 @@
 	import { linear } from 'svelte/easing';
 	import { toastColourMapper } from '$lib/utils/mappers.utils';
 	import type { ToastType } from '$lib/types';
-	import { tweened } from 'svelte/motion';
+	import { tween } from '$lib/utils/tween.utils';
 
 	export let auto: boolean;
 	export let duration: number;
 	export let icon: boolean;
 	export let message: string;
+	export let pausable: boolean;
 	export let type: ToastType;
 	export let onClose: () => void;
 
-	const progress = tweened(100, { duration, easing: linear });
-	auto && progress.set(0);
+	const progress = tween({ duration, easing: linear, then: onClose });
+	auto && progress.begin();
 
-	$: colour = toastColourMapper[type];
+	const colour = toastColourMapper[type];
 </script>
 
 <div
-	class="flex flex-col w-64 min-h-14 text-white rounded-lg border-l-4 bg-zinc-900 text-md drop-shadow-md overflow-hidden {colour.border}"
+	class="flex flex-col w-64 min-h-14 text-white rounded-lg border-l-4 bg-zinc-900 text-md drop-shadow-md overflow-hidden mb-2 {colour.border}"
+	role="status"
+	on:mouseenter={() => {
+		auto && pausable && progress.pause();
+	}}
+	on:mouseleave={() => {
+		auto && pausable && progress.resume();
+	}}
 >
 	<div class="flex-1 flex items-center gap-3 p-3">
 		{#if icon}

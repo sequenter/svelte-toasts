@@ -1,10 +1,7 @@
 <script lang="ts">
 	import '../app.css';
-	import { ToastWrapper } from '$lib/components';
 </script>
 
-<main class="container w-full max-w-lg mx-auto">
+<main class="container w-full max-w-lg mx-auto leading-relaxed">
 	<slot />
 </main>
-
-<ToastWrapper />

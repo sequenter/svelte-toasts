@@ -1,6 +1,7 @@
 import { Close, Error, Info, Success, Warning } from '$lib/components/icons/svg';
+import type { Position, ToastType } from '$lib/types';
 import type { ComponentType } from 'svelte';
-import type { ToastType } from '$lib/types';
+import type { FlyParams } from 'svelte/transition';
 
 export const iconMapper: { [key in ToastType | 'close']: ComponentType } = {
 	close: Close,
@@ -33,4 +34,18 @@ export const toastColourMapper: {
 		border: 'border-yellow-500',
 		bg: 'bg-yellow-500'
 	}
-};
+} as const;
+
+export const positionMapper: { [key in Position]: string } = {
+	bottom: 'bottom-10 inset-x-0 max-w-max mx-auto',
+	end: 'top-10 right-10',
+	start: 'top-10 left-10',
+	top: 'top-10 inset-x-0 max-w-max mx-auto'
+} as const;
+
+export const flyMapper: { [key in Position]: FlyParams } = {
+	bottom: { y: '100%' },
+	end: { x: '100%' },
+	start: { x: '-100%' },
+	top: { y: '-100%' }
+} as const;
