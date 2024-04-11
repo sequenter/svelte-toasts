@@ -1,11 +1,12 @@
 <script lang="ts">
+	import type { Position, ToastType } from '$lib/types';
 	import { Icon } from '$lib/components/icons';
 	import { linear } from 'svelte/easing';
-	import { toastColourMapper } from '$lib/utils/mappers.utils';
-	import type { ToastType } from '$lib/types';
+	import { toastBorderMapper, toastColourMapper } from '$lib/utils/mappers.utils';
 	import { tween } from '$lib/utils/tween.utils';
 
 	export let auto: boolean;
+	export let border: Position | 'all';
 	export let duration: number;
 	export let icon: boolean;
 	export let message: string;
@@ -20,7 +21,9 @@
 </script>
 
 <div
-	class="flex flex-col w-64 min-h-14 text-white rounded-lg border-l-4 bg-zinc-900 text-md drop-shadow-md overflow-hidden mb-2 {colour.border}"
+	class="flex flex-col w-64 min-h-14 text-white rounded-lg bg-zinc-900 text-md drop-shadow-md overflow-hidden mb-2 {toastBorderMapper[
+		border
+	]} {colour.border}"
 	role="status"
 	on:mouseenter={() => {
 		auto && pausable && progress.pause();

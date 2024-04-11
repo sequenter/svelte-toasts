@@ -36,6 +36,14 @@ export const toastColourMapper: {
 	}
 } as const;
 
+export const toastBorderMapper: { [key in Position | 'all']: string } = {
+	bottom: 'border-b-4',
+	end: 'border-r-4',
+	start: 'border-l-4',
+	top: 'border-t-4',
+	all: 'border-4'
+} as const;
+
 export const positionMapper: { [key in Position]: string } = {
 	bottom: 'bottom-10 inset-x-0 max-w-max mx-auto',
 	end: 'top-10 right-10',

@@ -1,8 +1,5 @@
-export type AnimationProp = 'delay' | 'duration';
-
-export type Animation = {
-	[key in AnimationProp]: number;
-};
+import type { FadeParams, FlyParams } from 'svelte/transition';
+import type { FlipParams } from 'svelte/animate';
 
 export type Position = 'bottom' | 'end' | 'start' | 'top';
 
@@ -12,8 +9,15 @@ export type ToastType = 'error' | 'info' | 'success' | 'warning';
 
 export type IconType = ToastType | 'close';
 
+export interface AnimationOptions {
+	fade?: FadeParams;
+	fly?: FlyParams;
+	flip?: FlipParams;
+}
+
 export interface ToastOptions {
 	auto?: boolean;
+	border?: Position | 'all';
 	duration?: number;
 	icon?: boolean;
 	pausable?: boolean;

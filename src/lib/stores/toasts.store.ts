@@ -1,15 +1,8 @@
+import { defaultToastStore, defaultAnimationStore } from './defaults.store';
+import { get, writable } from 'svelte/store';
 import type { Toast, ToastOptions, ToastPop } from '$lib/types';
 import { animationStore } from './animation.store';
 import { tick } from 'svelte';
-import { writable } from 'svelte/store';
-
-const defaultOptions: ToastOptions = {
-	auto: true,
-	duration: 3000,
-	icon: true,
-	pausable: true,
-	type: 'info'
-};
 
 const createStore = () => {
 	let toastId = 0;
@@ -17,9 +10,6 @@ const createStore = () => {
 	const { set, subscribe, update } = writable<(Required<ToastOptions> & Toast)[]>([]);
 
 	const pop = async (id: number | ToastPop) => {
-		animationStore.set('delay');
-		await tick();
-
 		switch (id) {
 			case 'new':
 				update((toasts) => toasts.slice(1));
@@ -33,21 +23,18 @@ const createStore = () => {
 	};
 
 	const push = async (message: string, opts?: ToastOptions) => {
-		const options = { ...defaultOptions, ...opts } as Required<ToastOptions>;
+		const options = { ...get(defaultToastStore), ...opts } as Required<ToastOptions>;
 		const id = toastId++;
-
-		animationStore.set('delay', 0);
-		await tick();
 
 		update((toasts) => [{ ...options, ...{ id, message } }, ...toasts]);
 	};
 
 	const clear = async () => {
-		animationStore.set('duration', 0);
+		animationStore.update((animations) => ({ ...animations, ...{ fade: { duration: 0 } } }));
 		await tick();
 
 		set([]);
-		animationStore.set('duration');
+		animationStore.set(get(defaultAnimationStore));
 	};
 
 	return {
@@ -59,5 +46,3 @@ const createStore = () => {
 };
 
 export const toasts = createStore();
-
-export const toastsDelay = writable<number>(0);
