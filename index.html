@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" href="./favicon.png" />
+
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&display=swap"
+			rel="stylesheet"
+		/>
+
+		
+		<link rel="modulepreload" href="./_app/immutable/entry/start.bn1rNkwM.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/entry.C3SbEJJl.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/scheduler.pVJdbbcf.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.DaQNX-r-.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.D2Ac2Cwr.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/index.DumNTOrI.js">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div>
+			<script>
+				{
+					__sveltekit_uczg8h = {
+						base: new URL(".", location).pathname.slice(0, -1),
+						assets: "/svelte-toasts"
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("./_app/immutable/entry/start.bn1rNkwM.js"),
+						import("./_app/immutable/entry/app.D2Ac2Cwr.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element);
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
