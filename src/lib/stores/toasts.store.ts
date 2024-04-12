@@ -9,7 +9,12 @@ const createStore = () => {
 
 	const { set, subscribe, update } = writable<(Required<ToastOptions> & Toast)[]>([]);
 
-	const pop = async (id: number | ToastPop) => {
+	/**
+	 * Removes a toast from the store based on the given {@link id}.  This can relate to the id number of
+	 * a toast or {@link ToastPop}.  'new' removes the latest toast, whereas 'old' removes the oldest.
+	 * @param {number | ToastPop} id The id of the toast to remove, or either 'new' or 'old'.
+	 */
+	const pop = (id: number | ToastPop) => {
 		switch (id) {
 			case 'new':
 				update((toasts) => toasts.slice(1));
@@ -22,13 +27,25 @@ const createStore = () => {
 		}
 	};
 
-	const push = async (message: string, opts?: ToastOptions) => {
+	/**
+	 * Push a new toast to the store.
+	 * @param {string} message The message for the toast to display.
+	 * @param {ToastOptions} opts (optional)
+	 * @returns {number} Id of the toast.
+	 */
+	const push = (message: string, opts?: ToastOptions): number => {
 		const options = { ...get(defaultToastStore), ...opts } as Required<ToastOptions>;
 		const id = toastId++;
 
 		update((toasts) => [{ ...options, ...{ id, message } }, ...toasts]);
+
+		return id;
 	};
 
+	/**
+	 * Remove all toasts from the store.  Sets the fade transition duration to 0 beforehand, to ensure toasts
+	 * are cleared instantly after awaiting 'tick'.
+	 */
 	const clear = async () => {
 		animationStore.update((animations) => ({ ...animations, ...{ fade: { duration: 0 } } }));
 		await tick();
