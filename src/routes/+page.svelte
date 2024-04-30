@@ -63,44 +63,12 @@
 <div class="flex flex-col items-center p-5 gap-3">
 	<div class="text-center">
 		<h1 class="text-2xl font-bold">svelte-toasts</h1>
-		<p>Yet another Svelte toasts library</p>
+		<p>yet another Svelte toasts library</p>
+		<p class="text-xs text-gray-400">push some buttons</p>
 	</div>
 
-	<div class="h-96 w-full rounded-lg bg-zinc-800"></div>
-
-	<div class="flex w-full gap-3">
-		<div class="grow">
-			<div class="flex flex-col gap-3 h-full">
-				<div
-					class="flex flex-col gap-3 p-5 text-center rounded-lg border-2 border-dashed border-gray-500"
-				>
-					<h3 class="text-xl">BORDERS</h3>
-					<ul class="list-none space-y-2">
-						{#each borders as border}
-							<li>
-								<Button
-									label={border}
-									on:click={() => {
-										toasts.push(border, {
-											...toggles,
-											type: getRandomType(),
-											border
-										});
-									}}
-								/>
-							</li>
-						{/each}
-					</ul>
-				</div>
-				<div
-					class="grow flex p-5 items-center justify-center rounded-lg border-2 border-dashed border-gray-500"
-				>
-					<span class="text-gray-500 font-medium">Made by Sequenter</span>
-				</div>
-			</div>
-		</div>
-
-		<div class="grow flex flex-col gap-3">
+	<div class="grid grid-cols-2 sm:grid-cols-4 w-full gap-3">
+		<div class="flex flex-col col-span-2 sm:col-span-4 gap-3">
 			<div
 				class="flex flex-col gap-3 p-5 text-center rounded-lg border-2 border-dashed border-gray-500"
 			>
@@ -114,60 +82,87 @@
 					{/each}
 				</ul>
 			</div>
+		</div>
 
-			<div class="flex gap-3 w-full">
-				<div
-					class="grow flex flex-col gap-3 p-5 text-center rounded-lg border-2 border-dashed border-gray-500"
-				>
-					<h3 class="text-xl">TYPES</h3>
-					<ul class="list-none space-y-2">
-						{#each types as { message, opts }}
-							<li>
-								<Button
-									label={message}
-									on:click={() => {
-										toasts.push(message, {
-											...opts,
-											...toggles
-										});
-									}}
-								/>
-							</li>
-						{/each}
-					</ul>
-				</div>
-
-				<div
-					class="grow flex flex-col gap-3 p-5 text-center rounded-lg border-2 border-dashed border-gray-500"
-				>
-					<h3 class="text-xl">POSITION</h3>
-					<ul class="list-none space-y-2">
-						{#each positions as pos}
-							<li>
-								<Button
-									label={pos}
-									on:click={() => {
-										position = pos;
-									}}
-								/>
-							</li>
-						{/each}
-					</ul>
-				</div>
-
-				<div
-					class="grow flex flex-col gap-3 p-5 text-center rounded-lg border-2 border-dashed border-gray-500"
-				>
-					<h3 class="text-xl">ACTIONS</h3>
-					<ul class="list-none space-y-2">
-						{#each actions as { label, func }}
-							<li>
-								<Button {label} on:click={func} />
-							</li>
-						{/each}
-					</ul>
-				</div>
+		<div class="flex flex-col gap-3 h-full">
+			<div
+				class="flex flex-col gap-3 p-5 text-center rounded-lg border-2 border-dashed border-gray-500"
+			>
+				<h3 class="text-xl">BORDERS</h3>
+				<ul class="list-none space-y-2">
+					{#each borders as border}
+						<li>
+							<Button
+								label={border}
+								on:click={() => {
+									toasts.push(border, {
+										...toggles,
+										type: getRandomType(),
+										border
+									});
+								}}
+							/>
+						</li>
+					{/each}
+				</ul>
 			</div>
+			<div
+				class="hidden sm:flex p-5 items-center justify-center rounded-lg border-2 border-dashed border-gray-500"
+			>
+				<span class="text-gray-500 font-medium">Made by Sequenter</span>
+			</div>
+		</div>
+
+		<div
+			class="flex flex-col gap-3 p-5 text-center rounded-lg border-2 border-dashed border-gray-500"
+		>
+			<h3 class="text-xl">TYPES</h3>
+			<ul class="list-none space-y-2">
+				{#each types as { message, opts }}
+					<li>
+						<Button
+							label={message}
+							on:click={() => {
+								toasts.push(message, {
+									...opts,
+									...toggles
+								});
+							}}
+						/>
+					</li>
+				{/each}
+			</ul>
+		</div>
+
+		<div
+			class="flex flex-col gap-3 p-5 text-center rounded-lg border-2 border-dashed border-gray-500"
+		>
+			<h3 class="text-xl">POSITION</h3>
+			<ul class="list-none space-y-2">
+				{#each positions as pos}
+					<li>
+						<Button
+							label={pos}
+							on:click={() => {
+								position = pos;
+							}}
+						/>
+					</li>
+				{/each}
+			</ul>
+		</div>
+
+		<div
+			class="flex flex-col gap-3 p-5 text-center rounded-lg border-2 border-dashed border-gray-500"
+		>
+			<h3 class="text-xl">ACTIONS</h3>
+			<ul class="list-none space-y-2">
+				{#each actions as { label, func }}
+					<li>
+						<Button {label} on:click={func} />
+					</li>
+				{/each}
+			</ul>
 		</div>
 	</div>
 </div>
