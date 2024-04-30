@@ -18,7 +18,7 @@
 </script>
 
 <ul class="fixed list-none z-50 {positionMapper[position]}">
-	{#each $toasts as { auto, border, duration, icon, id, message, pausable, type } (id)}
+	{#each $toasts as { auto, border, duration, icon, id, message, pausable, reverse, type } (id)}
 		<li
 			in:fly={{ ...flyMapper[position], ...$animationStore.fly }}
 			out:fade={$animationStore.fade}
@@ -31,6 +31,7 @@
 				{icon}
 				{message}
 				{pausable}
+				{reverse}
 				{type}
 				onClose={() => toasts.pop(id)}
 			/>

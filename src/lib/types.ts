@@ -21,6 +21,7 @@ export interface ToastOptions {
 	duration?: number;
 	icon?: boolean;
 	pausable?: boolean;
+	reverse?: boolean;
 	type?: ToastType;
 }
 

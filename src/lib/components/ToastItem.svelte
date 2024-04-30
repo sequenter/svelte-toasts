@@ -11,10 +11,11 @@
 	export let icon: boolean;
 	export let message: string;
 	export let pausable: boolean;
+	export let reverse: boolean;
 	export let type: ToastType;
 	export let onClose: () => void;
 
-	const progress = tween({ duration, easing: linear, then: onClose });
+	const progress = tween({ duration, reverse, easing: linear, then: onClose });
 	auto && progress.begin();
 
 	const colour = toastColourMapper[type];

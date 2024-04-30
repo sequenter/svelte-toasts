@@ -38,9 +38,7 @@
 			label: 'push',
 			func: () => {
 				toasts.push('push', {
-					auto: toggles.auto,
-					icon: toggles.icon,
-					pausable: toggles.pausable,
+					...toggles,
 					type: getRandomType()
 				});
 			}
@@ -50,7 +48,8 @@
 	const toggles: { [x: string]: boolean } = {
 		auto: true,
 		icon: true,
-		pausable: true
+		pausable: true,
+		reverse: false
 	};
 
 	let position: Position = 'end';
@@ -83,9 +82,7 @@
 									label={border}
 									on:click={() => {
 										toasts.push(border, {
-											auto: toggles.auto,
-											icon: toggles.icon,
-											pausable: toggles.pausable,
+											...toggles,
 											type: getRandomType(),
 											border
 										});
@@ -131,7 +128,7 @@
 									on:click={() => {
 										toasts.push(message, {
 											...opts,
-											...{ auto: toggles.auto, icon: toggles.icon, pausable: toggles.pausable }
+											...toggles
 										});
 									}}
 								/>
